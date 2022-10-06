@@ -1,0 +1,20 @@
+.mx-header {
+    display: flex;
+    justify-content: space-between;
+}
+.mx-title {
+    width: 100px;
+    padding: 10px;
+    font-size: 24px;
+    background-color: #e3b3b3;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+.main-container{
+    width: 700px;
+    min-height: 1000px;
+    border: 1px #bbb solid;
+}
