@@ -12,9 +12,25 @@
 body {
     display: flex;
     justify-content: center;
+    border: 1;
 }
 .main-container{
     width: 700px;
     min-height: 1000px;
-    border: 1px #bbb solid;
+    border: 1px rgb(0, 0, 0) solid;
+}
+.main-upside{/*上部容器*/
+    width: 699px;
+    border: 1px rgb(0, 0, 0) solid;
+    padding: 0%;
+}
+.main-in_upside{/*上部容器*/
+    width: 699px;
+    display: flex;
+    padding: 0%;
+    justify-content: space-between;
+}
+.board{/*文字和文本框行内化*/
+    display: inline-block;
+    font-size: 20px;
 }

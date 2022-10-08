@@ -12,14 +12,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>扫雷</title>
+    <style type="text/css">
+        button{
+           width:150px;
+        }
+    </style>
 </head>
 
 <body>
     <div class="main-container">
-        <div class="mx-header">
-            <div class="mx-title">扫雷...</div>
-            <div id="nowTime"></div>
-        </div>
+        <form action="#" method="post" > 
+           <div class="mx-header">
+             <div class="mx-title" >扫雷...</div>
+             <div id="nowTime" ></div>
+           </div>
+           <div class="main-upside">
+            <br>
+              <div class="main-in_upside">
+                   <div class="board">宽：<input type="number" name="textfield1" size="10" ></div> 
+                   <div class="board">雷：<input type="number" name="textfield2" size="10" ></div>
+                   <div class="board">计时/秒&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+              </div>
+              <div class="main-in_upside">
+                   <div class="board">高：<input type="number" name="textfield1" size="10" ></div> 
+                   <button type="button" widtd="25%">生成</button>
+                   <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+              </div>
+              <br>
+           </div>
+        </form>  
     </div>
 </body>
 
