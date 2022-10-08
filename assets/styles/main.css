@@ -19,18 +19,30 @@ body {
     min-height: 1000px;
     border: 1px rgb(0, 0, 0) solid;
 }
-.main-upside{/*上部容器*/
-    width: 699px;
-    border: 1px rgb(0, 0, 0) solid;
+/*上部容器*/
+.main-upside{
+    width: 700px;
+    border-top: 1px rgb(0, 0, 0) solid;
+    border-bottom: 1px rgb(0, 0, 0) solid;
     padding: 0%;
+    line-height: 25px;
 }
-.main-in_upside{/*上部容器*/
+.main-in-upside{
     width: 699px;
     display: flex;
     padding: 0%;
     justify-content: space-between;
+    font-size: 18px;
 }
-.board{/*文字和文本框行内化*/
-    display: inline-block;
-    font-size: 20px;
+.text-right{
+    padding-right: 80px;
+}
+button{
+    height: 25px;
+    width:120px;
+    margin-right: 50px;
+    
+}
+input{
+    width: 100px;
 }
