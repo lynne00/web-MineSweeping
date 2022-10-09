@@ -21,13 +21,15 @@ body {
 }
 /*上部容器*/
 .main-upside{
-    width: 700px;
+    width:100%;
     border-top: 1px rgb(0, 0, 0) solid;
     border-bottom: 1px rgb(0, 0, 0) solid;
     padding: 0%;
     line-height: 25px;
 }
 .main-in-upside{
+    margin-top: 10px;
+    margin-bottom: 10px;
     width: 699px;
     display: flex;
     padding: 0%;
@@ -35,14 +37,20 @@ body {
     font-size: 18px;
 }
 .text-right{
-    padding-right: 80px;
+    padding-right: 50px;
+}
+.text-left{
+    padding-left: 10px;
 }
 button{
     height: 25px;
     width:120px;
-    margin-right: 50px;
-    
+    float:right;
 }
 input{
     width: 100px;
+}
+.horizontal{
+    display: flex;
+    margin-left: 15px;
 }
