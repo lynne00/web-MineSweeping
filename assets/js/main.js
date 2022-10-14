@@ -25,9 +25,9 @@ function createTable() {
     var row = document.getElementById("row").value;
     var col = document.getElementById("col").value;
     let show = ""
-    show += '<table  cellspacing="0" class="table1">';
+    show += '<table  class="table1">';
     for (var i = 0; i < row; i++) {
-        show+='<tr class=tr1>'
+        show+='<tr>'
         for (var j = 0; j < col; j++) {
             show+= '<td  class="td1"></td>';
         }

@@ -62,15 +62,16 @@ input{
     justify-content: space-around;
     font-size: 25px;
 }
-
+.table1{
+    border-spacing:0;
+    border-right: 1px rgb(0, 0, 0) solid;
+    border-bottom: 1px rgb(0, 0, 0) solid;
+}
 .td1{
-    border: 1px rgb(0, 0, 0) solid;
+    border-left: 1px rgb(22, 21, 21) solid;
+    border-top: 1px rgb(0, 0, 0) solid;
     border-collapse: collapse;
     height: 30px;
     width :30px;
     text-align: center;
-}
-.tr1{
-    border: 1px rgb(0, 0, 0) solid;
-    border-collapse: collapse;
 }
