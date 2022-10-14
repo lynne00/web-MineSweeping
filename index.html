@@ -24,12 +24,12 @@
             <div class="main-in-upside">
                 <div class="horizontal">
                     <div>
-                        <div>宽：<input type="number"></div>
-                        <div>高：<input type="number"></div>
+                        <div>列数：<input type="number" id="col"></div>
+                        <div>行数：<input type="number" id="row"></div>
                     </div>
                     <div class="text-left">
                         <div>雷：<input type="number"></div>
-                        <button >生成</button>
+                        <button onclick="createTable()">生成</button>
                     </div>
                 </div>
                 <div>
@@ -38,6 +38,9 @@
                 </div>
 
             </div>
+        </div>
+        <div class="main-bottom">
+            <div id="temp">你好，世界！</div>
         </div>
     </div>
 </body>

@@ -30,12 +30,13 @@ body {
 .main-in-upside{
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 699px;
+    width:100%;
     display: flex;
     padding: 0%;
     justify-content: space-between;
     font-size: 18px;
 }
+
 .text-right{
     padding-right: 50px;
 }
@@ -54,4 +55,22 @@ input{
 .horizontal{
     display: flex;
     margin-left: 15px;
+}
+.main-bottom{
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 25px;
+}
+
+.td1{
+    border: 1px rgb(0, 0, 0) solid;
+    border-collapse: collapse;
+    height: 30px;
+    width :30px;
+    text-align: center;
+}
+.tr1{
+    border: 1px rgb(0, 0, 0) solid;
+    border-collapse: collapse;
 }
