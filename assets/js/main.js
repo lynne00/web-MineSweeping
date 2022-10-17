@@ -37,8 +37,8 @@ function createTable() {
     for (var i = 0; i < row; i++) {
         show += '<tr class="tr1">'
         for (var j = 0; j < col; j++) {
-            show += `<td  class="td1"  id="cellClick${i}${j}"><img src="assets/images/cell_click.png" class="cell_click" 
-            onclick="clickTable(cellClick${i}${j},${i},${j})" oncontextmenu="setSign(cellClick${i}${j})"></td>`;
+            show += `<td  class="td1"  id="cellClick_${i}_${j}"><img src="assets/images/cell_click.png" class="cell_click" 
+            onclick="clickTable(${i},${j})" oncontextmenu="setSign(${i},${j})"></td>`;
         }
         show += '</tr>'
     }
@@ -47,8 +47,8 @@ function createTable() {
 
 }
 //左键事件
-function clickTable(imga, i, j) {
-    console.log(imga);
+function clickTable(i, j) {
+    imga=document.getElementById(`cellClick_${i}_${j}`);
     if (map[i][j] == "*") {
         showMap();
         alert("defate");
@@ -89,10 +89,16 @@ function setMine(map) {
     }
     console.log(map);
 }
-function setSign(imga){
-    console.log(toString(imga));
-    imga.innerHTML = `<img src="assets/images/sign.png" class="cell_click">`;
-    // imga.innerHTML =`<img src="assets/images/cell_click.png" class="cell_click" onclick="clickTable(cellClick${i}${j},${i},${j})" oncontextmenu="setSign(cellClick${i}${j})">`
+function setSign(i,j){
+    imga=document.getElementById(`cellClick_${i}_${j}`);
+    if(imga.innerHTML.match("sign")==null){
+        imga.innerHTML = `<img src="assets/images/sign.png" class="cell_click" oncontextmenu="setSign(${i},${j})">`;
+    }
+    else{
+        imga.innerHTML =`<img src="assets/images/cell_click.png" class="cell_click" 
+        onclick="clickTable(${i},${j})" oncontextmenu="setSign(${i},${j})">`
+    }
+    
 }
 //显示全局地雷
 function showMap()
@@ -100,7 +106,7 @@ function showMap()
     for (var i = 0; i < map.length; i++) {
         for (var j = 0; j < map[0].length; j++) {
             if(map[i][j]=="*"){
-                document.getElementById(`cellClick${i}${j}`).innerHTML = `<img src="assets/images/mine.png" class="cell_click">`;
+                document.getElementById(`cellClick_${i}_${j}`).innerHTML = `<img src="assets/images/mine.png" class="cell_click">`;
             }
         }
     }
