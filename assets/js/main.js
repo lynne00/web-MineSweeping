@@ -20,19 +20,82 @@ function startUpdateTime() {
         document.getElementById("nowTime").innerHTML = nowTime
     }, 500)
 }
+//制作地图
+var map = new Array();//初始化二维地图
 function createTable() {
-    
     var row = document.getElementById("row").value;
     var col = document.getElementById("col").value;
+    for (var i = 0; i < row; i++) {
+        map[i] = new Array();
+        for (var j = 0; j < col; j++) {
+            map[i][j] = "";
+        }
+    }
     let show = ""
+    setMine(map);
     show += '<table  class="table1">';
     for (var i = 0; i < row; i++) {
-        show+='<tr>'
+        show += '<tr class="tr1">'
         for (var j = 0; j < col; j++) {
-            show+= '<td  class="td1"></td>';
+            show += `<td  class="td1"  id="cellClick${i}${j}"><img src="assets/images/cell_click.png" class="cell_click" onclick="clickTable(cellClick${i}${j},${i},${j})"></td>`;
         }
-        show+='</tr>'
+        show += '</tr>'
     }
-    show+='</table>'
+    show += '</table>'
     document.getElementById("temp").innerHTML = show;
+
+}
+//左键事件
+function clickTable(imga, i, j) {
+    console.log(imga);
+    if (map[i][j] == "*") {
+        showMap();
+        alert("defate");
+    }
+    else {
+        let cnt=0;//记录周围雷数
+        for(var x=i-1;x<i+2;x++){
+            if(x<0||x>map.length-1){
+                continue;
+              }
+            for(var y=j-1;y<j+2;y++){
+                if(y<0||y>map[0].length-1){
+                  continue;
+                }
+                if (map[x][y] == "*") {
+                    cnt++;
+                }
+            }
+        }
+        imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
+    }
+}
+
+//设置地雷
+function setMine(map) {
+    var row = document.getElementById("row").value;
+    var col = document.getElementById("col").value;
+    var mine = document.getElementById("mine").value;
+    for (var i = 0; i < mine; i++) {
+        var mineRow = Math.floor(Math.random() * (row - 1));
+        var mineCol = Math.floor(Math.random() * (col - 1));
+        if (map[mineRow][mineCol] != "*") {
+            map[mineRow][mineCol] = "*";
+        }
+        else {
+            i--;
+        }
+    }
+    console.log(map);
+}
+//显示全局地雷
+function showMap()
+{
+    for (var i = 0; i < map.length; i++) {
+        for (var j = 0; j < map[0].length; j++) {
+            if(map[i][j]=="*"){
+                document.getElementById(`cellClick${i}${j}`).innerHTML = `<img src="assets/images/mine.png" class="cell_click">`;
+            }
+        }
+    }
 }
