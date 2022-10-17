@@ -37,7 +37,8 @@ function createTable() {
     for (var i = 0; i < row; i++) {
         show += '<tr class="tr1">'
         for (var j = 0; j < col; j++) {
-            show += `<td  class="td1"  id="cellClick${i}${j}"><img src="assets/images/cell_click.png" class="cell_click" onclick="clickTable(cellClick${i}${j},${i},${j})"></td>`;
+            show += `<td  class="td1"  id="cellClick${i}${j}"><img src="assets/images/cell_click.png" class="cell_click" 
+            onclick="clickTable(cellClick${i}${j},${i},${j})" oncontextmenu="setSign(cellClick${i}${j})"></td>`;
         }
         show += '</tr>'
     }
@@ -87,6 +88,11 @@ function setMine(map) {
         }
     }
     console.log(map);
+}
+function setSign(imga){
+    console.log(toString(imga));
+    imga.innerHTML = `<img src="assets/images/sign.png" class="cell_click">`;
+    // imga.innerHTML =`<img src="assets/images/cell_click.png" class="cell_click" onclick="clickTable(cellClick${i}${j},${i},${j})" oncontextmenu="setSign(cellClick${i}${j})">`
 }
 //显示全局地雷
 function showMap()
