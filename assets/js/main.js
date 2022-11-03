@@ -22,30 +22,40 @@ function startUpdateTime() {
 }
 //制作地图
 var map = new Array();//初始化二维地图
-var sweep;//记录已排查的数量
+var sweep = 0;//记录已排查的数量
 function createTable() {
     sweep = 0;//记录已排查的数量
     var row = document.getElementById("row").value;
     var col = document.getElementById("col").value;
-    for (var i = 0; i < row; i++) {
-        map[i] = new Array();
-        for (var j = 0; j < col; j++) {
-            map[i][j] = "";
-        }
+    var mine = document.getElementById("mine").value;
+    const cellsum = row * col;
+    if (row <= 0 || col <= 0 || row == " " || col == " ") {
+        alert("你生成了个寂寞？");
     }
-    let show = ""
-    setMine(map);
-    show += '<table  class="table1">';
-    for (var i = 0; i < row; i++) {
-        show += '<tr class="tr1">'
-        for (var j = 0; j < col; j++) {
-            show += `<td  class="td1"  id="cellClick_${i}_${j}"><img src="assets/images/cell_click.png" class="cell_click" 
+    else if(mine>cellsum){
+        alert("雷数超标！");
+    }
+    else {
+        for (var i = 0; i < row; i++) {
+            map[i] = new Array();
+            for (var j = 0; j < col; j++) {
+                map[i][j] = "";
+            }
+        }
+        let show = ""
+        setMine(map);
+        show += '<table  class="table1">';
+        for (let i = 0; i < row; i++) {
+            show += '<tr class="tr1">'
+            for (let j = 0; j < col; j++) {
+                show += `<td  class="td1"  id="cellClick_${i}_${j}"><img src="assets/images/cell_click.png" class="cell_click" 
             onclick="clickTable(${i},${j})" oncontextmenu="setSign(${i},${j})"></td>`;
+            }
+            show += '</tr>'
         }
-        show += '</tr>'
+        show += '</table>'
+        document.getElementById("temp").innerHTML = show;
     }
-    show += '</table>'
-    document.getElementById("temp").innerHTML = show;
 
 }
 //左键事件
@@ -53,19 +63,22 @@ function clickTable(i, j) {
     var row = document.getElementById("row").value;
     var col = document.getElementById("col").value;
     var mine = document.getElementById("mine").value;
-    cellsum = row * col;
+    const cellsum = row * col;
     imga = document.getElementById(`cellClick_${i}_${j}`);
+    //是否踩到雷
     if (map[i][j] == "*") {
         showMap();
-        alert("defate");
+        setTimeout("alert('defate!',location.reload())",100);///////
     }
     else {
         let cnt = 0;//记录周围雷数
-        for (var x = i - 1; x < i + 2; x++) {
+        for (let x = i - 1; x < i + 2; x++) {
+            //边界判定
             if (x < 0 || x > map.length - 1) {
                 continue;
             }
-            for (var y = j - 1; y < j + 2; y++) {
+            //计算周边雷数
+            for (let y = j - 1; y < j + 2; y++) {
                 if (y < 0 || y > map[0].length - 1) {
                     continue;
                 }
@@ -74,20 +87,20 @@ function clickTable(i, j) {
                 }
             }
         }
-        if (cnt == 0 &&imga.innerHTML.match("ed0")==null) {
+        //扩散判定
+        if (cnt == 0 && imga.innerHTML.match("ed0") == null) {
             imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
             sweep++;
-            console.log(sweep);
             spreadMine(i, j);
         }
-        else if(imga.innerHTML.match("ed")==null){
+        else if (imga.innerHTML.match("ed") == null) {
             imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
             sweep++;
-            console.log(sweep);
         }
-        
         if (cellsum - sweep == mine) {
-            alert("success!");
+            setTimeout("alert('success!',location.reload())",100);/////////////
+           
+            sweep++;
         }
     }
 
@@ -98,9 +111,10 @@ function setMine(map) {
     var row = document.getElementById("row").value;
     var col = document.getElementById("col").value;
     var mine = document.getElementById("mine").value;
-    for (var i = 0; i < mine; i++) {
-        var mineRow = Math.floor(Math.random() * (row - 1));
-        var mineCol = Math.floor(Math.random() * (col - 1));
+    const cellsum = row * col;
+    for (let i = 0; i < mine; i++) {
+        let mineRow = Math.floor(Math.random() * (row));
+        let mineCol = Math.floor(Math.random() * (col));
         if (map[mineRow][mineCol] != "*") {
             map[mineRow][mineCol] = "*";
         }
@@ -110,6 +124,7 @@ function setMine(map) {
     }
     console.log(map);
 }
+//设置标记
 function setSign(i, j) {
     imga = document.getElementById(`cellClick_${i}_${j}`);
     if (imga.innerHTML.match("sign") == null) {
@@ -123,8 +138,8 @@ function setSign(i, j) {
 }
 //显示全局地雷
 function showMap() {
-    for (var i = 0; i < map.length; i++) {
-        for (var j = 0; j < map[0].length; j++) {
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[0].length; j++) {
             if (map[i][j] == "*") {
                 document.getElementById(`cellClick_${i}_${j}`).innerHTML = `<img src="assets/images/mine.png" class="cell_click">`;
             }
@@ -133,11 +148,11 @@ function showMap() {
 }
 //若四周没有雷，向四周扩散
 function spreadMine(i, j) {
-    for (var x = i - 1; x < i + 2; x++) {
+    for (let x = i - 1; x < i + 2; x++) {
         if (x < 0 || x > map.length - 1) {
             continue;
         }
-        for (var y = j - 1; y < j + 2; y++) {
+        for (let y = j - 1; y < j + 2; y++) {
             if (y < 0 || y > map[0].length - 1) {
                 continue;
             }
