@@ -32,10 +32,11 @@ function createTable() {
     if (row <= 0 || col <= 0 || row == " " || col == " ") {
         alert("你生成了个寂寞？");
     }
-    else if(mine>cellsum){
+    else if (mine > cellsum) {
         alert("雷数超标！");
     }
     else {
+        set_timer();
         for (var i = 0; i < row; i++) {
             map[i] = new Array();
             for (var j = 0; j < col; j++) {
@@ -68,7 +69,7 @@ function clickTable(i, j) {
     //是否踩到雷
     if (map[i][j] == "*") {
         showMap();
-        setTimeout("alert('defate!',location.reload())",100);///////
+        setTimeout("alert('defate!',location.reload())", 100);///////
     }
     else {
         let cnt = 0;//记录周围雷数
@@ -98,8 +99,8 @@ function clickTable(i, j) {
             sweep++;
         }
         if (cellsum - sweep == mine) {
-            setTimeout("alert('success!',location.reload())",100);/////////////
-           
+            setTimeout("alert('success!',location.reload())", 100);/////////////
+
             sweep++;
         }
     }
@@ -162,27 +163,32 @@ function spreadMine(i, j) {
     }
 }
 //计时器
-function set_timer(){
-  document.getElementById("timer").innerHTML = "00:00";  
-  let start;//初始时间
-  let time;//计时
-  let now;//当前时间
-  start=new Date().getTime();//记录当前时间
-  Timemachine=setInterval(() => {
-    let now =new Date().getTime();
-    time=now-start;
-    document.getElementById("timer").innerHTML = showtime(time);
-  }, 1000/60);
+var tab = false;//记录是否第一次开始计时
+function set_timer() {
+    let start;//初始时间
+    let time;//计时
+    let now;//当前时间 
+    if (tab) {
+        clearInterval(Timemachine);
+    }
+    start = new Date().getTime();//记录当前时间
+    Timemachine = setInterval(() => {
+        let now = new Date().getTime();
+        time = now - start;
+        document.getElementById("timer").innerHTML = showtime(time);
+        //标记触发
+    }, 1000 / 60);
+    tab=true;
 }
-function showtime(time){
+function showtime(time) {
     let min;
     let second;
     let msecond;
-    min= Math.floor(time / 1000 / 60 % 60);
+    min = Math.floor(time / 1000 / 60 % 60);
     second = Math.floor(time / 1000 % 60);
     msecond = time % 1000;
-    min = (min < 10 ? "0" + min : min)+":";
+    min = (min < 10 ? "0" + min : min) + ":";
     second = second < 10 ? "0" + second : second;
-    return min +second;
+    return min + second;
 
 }
