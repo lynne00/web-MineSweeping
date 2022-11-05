@@ -161,3 +161,27 @@ function spreadMine(i, j) {
 
     }
 }
+//计时器
+function set_timer(){
+  let start;//初始时间
+  let time;//计时
+  let now;//当前时间
+  start=new Date().getTime();//记录当前时间
+  Timemachine=setInterval(() => {
+    let now =new Date().getTime();
+    time=now-start;
+    document.getElementById("timer").innerHTML = showtime(time);
+  }, 1000/60);
+}
+function showtime(time){
+    let min;
+    let second;
+    let msecond;
+    min= Math.floor(time / 1000 / 60 % 60);
+    second = Math.floor(time / 1000 % 60);
+    msecond = time % 1000;
+    min = (min < 10 ? "0" + min : min)+":";
+    second = second < 10 ? "0" + second : second;
+    return min +second;
+
+}

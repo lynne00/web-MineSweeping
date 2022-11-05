@@ -29,12 +29,12 @@
                     </div>
                     <div class="text-left">
                         <div>雷：<input type="number" id="mine"></div>
-                        <button onclick="createTable()">生成</button>
+                        <button onclick="createTable(),set_timer()">生成</button>
                     </div>
                 </div>
                 <div>
-                    <div class="text-right">计时/秒</div>
-                    <div class="text-right"></div>
+                    <div class="text-right">计时/分:秒</div>
+                    <div id="timer" class="font-timer">00:00</div>
                 </div>
 
             </div>
