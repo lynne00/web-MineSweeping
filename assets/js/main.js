@@ -163,6 +163,7 @@ function spreadMine(i, j) {
 }
 //计时器
 function set_timer(){
+  document.getElementById("timer").innerHTML = "00:00";  
   let start;//初始时间
   let time;//计时
   let now;//当前时间
