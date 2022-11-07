@@ -16,7 +16,7 @@ body {
 }
 .main-container{
     width: 700px;
-    min-height: 1000px;
+    min-height: 800px;
     border: 1px rgb(0, 0, 0) solid;
 }
 /*上部容器*/
@@ -46,19 +46,19 @@ body {
 button{
     margin-top: 4px;
     height: 23px;
-    width:108px;
+    width:123px;
     float:right;
 }
 input{
-    width: 100px;
+    width: 115px;
 }
 .horizontal{
     display: flex;
     margin-left: 15px;
 }
 .main-bottom{
-    padding: 30px;
-    display: flex;
+    padding: 20px;
+    display: flex;   
     justify-content: space-around;
     font-size: 25px;
 }

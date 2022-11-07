@@ -24,11 +24,11 @@
             <div class="main-in-upside">
                 <div class="horizontal">
                     <div>
-                        <div>列数：<input type="number" id="col"></div>
-                        <div>行数：<input type="number" id="row"></div>
+                        <div>列数：<input type="number" id="col" oninput="if(value>20)value=20;else if(value<0)value=1" placeholder="取值1-20"></div>
+                        <div>行数：<input type="number" id="row" oninput="if(value>20)value=20;else if(value<0)value=1" placeholder="取值1-20"></div>
                     </div>
                     <div class="text-left">
-                        <div>雷：<input type="number" id="mine"></div>
+                        <div>雷：<input type="number" id="mine"  oninput="if(value<0)value=0" placeholder="取值0-0,默认0"></div>
                         <button onclick="createTable()">生成</button>
                     </div>
                 </div>

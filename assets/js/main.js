@@ -1,8 +1,36 @@
 window.onload = () => {
     startUpdateTime()
 }
+let time;//计时
+//计时器
+var tab = false;//记录是否第一次开始计时
+function set_timer() {
+    let start;//初始时间
+    let now;//当前时间 
+    if (tab) {
+        clearInterval(Timemachine);
+    }
+    start = new Date().getTime();//记录当前时间
+    Timemachine = setInterval(() => {
+        let now = new Date().getTime();
+        time = now - start;
+        document.getElementById("timer").innerHTML = showtime(time);
+        //标记触发
+    }, 1000 / 60);
+    tab = true;
+}
+function showtime(time) {
+    let min;
+    let second;
+    let msecond;
+    min = Math.floor(time / 1000 / 60 % 60);
+    second = Math.floor(time / 1000 % 60);
+    msecond = time % 1000;
+    min = (min < 10 ? "0" + min : min) + ":";
+    second = second < 10 ? "0" + second : second;
+    return min + second;
 
-
+}
 function timestampToTime(timestamp) {
     var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
     var Y = date.getFullYear() + '-';
@@ -18,6 +46,8 @@ function startUpdateTime() {
     var TIME_UPDATER_ID = setInterval(() => {
         let nowTime = timestampToTime(new Date().getTime())
         document.getElementById("nowTime").innerHTML = nowTime
+        let maxmine=getCol()*getRow();
+        document.getElementById("mine").placeholder = `取值0-${maxmine},默认0`;
     }, 500)
 }
 //制作地图
@@ -30,10 +60,10 @@ function createTable() {
     var mine = document.getElementById("mine").value;
     const cellsum = row * col;
     if (row <= 0 || col <= 0 || row == " " || col == " ") {
-        alert("你生成了个寂寞？");
+        alert("你生成了个寂寞？",location.reload());
     }
     else if (mine > cellsum) {
-        alert("雷数超标！");
+        alert("雷数超标！",location.reload());
     }
     else {
         set_timer();
@@ -99,8 +129,7 @@ function clickTable(i, j) {
             sweep++;
         }
         if (cellsum - sweep == mine) {
-            setTimeout("alert('success!',location.reload())", 100);/////////////
-
+            setTimeout("alert(`success!, 时长:${showtime(time)}`,location.reload())", 100);
             sweep++;
         }
     }
@@ -162,33 +191,21 @@ function spreadMine(i, j) {
 
     }
 }
-//计时器
-var tab = false;//记录是否第一次开始计时
-function set_timer() {
-    let start;//初始时间
-    let time;//计时
-    let now;//当前时间 
-    if (tab) {
-        clearInterval(Timemachine);
-    }
-    start = new Date().getTime();//记录当前时间
-    Timemachine = setInterval(() => {
-        let now = new Date().getTime();
-        time = now - start;
-        document.getElementById("timer").innerHTML = showtime(time);
-        //标记触发
-    }, 1000 / 60);
-    tab=true;
-}
-function showtime(time) {
-    let min;
-    let second;
-    let msecond;
-    min = Math.floor(time / 1000 / 60 % 60);
-    second = Math.floor(time / 1000 % 60);
-    msecond = time % 1000;
-    min = (min < 10 ? "0" + min : min) + ":";
-    second = second < 10 ? "0" + second : second;
-    return min + second;
 
+function getRow() {
+    if (document.getElementById("row") != null) {
+        return document.getElementById("row").value;
+    }
+    else{
+        return 0;
+    }
 }
+function getCol() {
+    if (document.getElementById("row") != null) {
+        return document.getElementById("col").value;
+    }
+    else{
+        return 0;
+    }
+}
+
