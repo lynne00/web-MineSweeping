@@ -21,7 +21,7 @@ body {
 }
 .main-container{
     width: 700px;
-    min-height: 800px;
+    height: 800px;
     border: 1px rgb(0, 0, 0) solid;
 }
 /*上部容器*/
@@ -47,6 +47,9 @@ body {
 }
 .text-left{
     padding-left: 20px;
+}
+.text-left1{
+    padding-left: 80px;
 }
 button{
     margin-top: 4px;
