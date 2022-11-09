@@ -11,8 +11,13 @@
 
 body {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     border: 1;
+    background-color: beige;
+}
+.temp{
+    display: flex;
+    justify-content: space-around;
 }
 .main-container{
     width: 700px;
