@@ -1,35 +1,15 @@
 window.onload = () => {
     startUpdateTime()
 }
-let time;//计时
-//计时器
-var tab = false;//记录是否第一次开始计时
-function set_timer() {
-    let start;//初始时间
-    let now;//当前时间 
-    if (tab) {
-        clearInterval(Timemachine);
-    }
-    start = new Date().getTime();//记录当前时间
-    Timemachine = setInterval(() => {
-        let now = new Date().getTime();
-        time = now - start;
-        document.getElementById("timer").innerHTML = showtime(time);
-        //标记触发
-    }, 1000 / 60);
-    tab = true;
-}
+
 function showtime(time) {
     let min;
     let second;
-    let msecond;
     min = Math.floor(time / 1000 / 60 % 60);
     second = Math.floor(time / 1000 % 60);
-    msecond = time % 1000;
     min = (min < 10 ? "0" + min : min) + ":";
     second = second < 10 ? "0" + second : second;
     return min + second;
-
 }
 function timestampToTime(timestamp) {
     var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -41,13 +21,22 @@ function timestampToTime(timestamp) {
     var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
     return Y + M + D + h + m + s;
 }
-
+var start;//游戏开始时间
+var tab = false;//记录是否开始游戏
 function startUpdateTime() {
+    let time;//计时
     var TIME_UPDATER_ID = setInterval(() => {
-        let nowTime = timestampToTime(new Date().getTime())
-        document.getElementById("nowTime").innerHTML = nowTime
+        var now=new Date().getTime();//时钟时间
+        let nowTime = timestampToTime(now);
+        if(tab){
+            time =  now-start;
+            document.getElementById("timer").innerHTML = showtime(time);
+        }
+        //提示雷的取值
         let maxmine=getCol()*getRow();
         document.getElementById("mine").placeholder = `取值0-${maxmine},默认0`;
+        document.getElementById("nowTime").innerHTML = nowTime;
+        
     }, 500)
 }
 //制作地图
@@ -66,7 +55,8 @@ function createTable() {
         alert("雷数超标！",location.reload());
     }
     else {
-        set_timer();
+        tab=true;
+        start = new Date().getTime();//记录游戏开始时间
         for (var i = 0; i < row; i++) {
             map[i] = new Array();
             for (var j = 0; j < col; j++) {
