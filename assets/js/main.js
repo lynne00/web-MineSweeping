@@ -44,6 +44,7 @@ function createTable() {
         alert("雷数超标！",location.reload());
     }
     else {
+        document.getElementById("timer").innerHTML = "00:00";
         tab=true;
         start = new Date().getTime();//记录游戏开始时间
         for (var i = 0; i < row; i++) {

@@ -3,8 +3,8 @@
 
 <head>
     <!-- style -->
-    <link rel="stylesheet" type="text/css" href="assets/styles/main.css">
-
+    <link rel="stylesheet" type="text/css" media="screen and (min-width:1366px)" href="assets/styles/main1.css">
+    <link rel="stylesheet" type="text/css" media="screen and (max-width:1366px)" href="assets/styles/main2.css" />
     <!-- js -->
     <script type="text/javascript" src="assets/js/main.js"></script>
     <script type="text/javascript" src="assets/js/dayjs.min.js"></script>
@@ -15,7 +15,7 @@
     <title>扫雷</title>
 </head>
 
-<body  oncontextmenu=self.event.returnValue=false>
+<body oncontextmenu=self.event.returnValue=false>
     <div class="main-left">
         <a><img src="assets/images/zeb_l.jpg"></a>
     </div>
@@ -28,28 +28,31 @@
             <div class="main-in-upside">
                 <div class="horizontal">
                     <div>
-                        <div>列数：<input type="number" id="col" oninput="if(value>20)value=20;else if(value<0)value=1" placeholder="取值1-20"></div>
-                        <div>行数：<input type="number" id="row" oninput="if(value>20)value=20;else if(value<0)value=1" placeholder="取值1-20"></div>
+                        <div>列数：<input type="number" id="col" oninput="if(value>20)value=20;else if(value<0)value=1"
+                                placeholder="取值1-20"></div>
+                        <div>行数：<input type="number" id="row" oninput="if(value>20)value=20;else if(value<0)value=1"
+                                placeholder="取值1-20"></div>
                     </div>
                     <div class="text-left">
-                        <div>雷：<input type="number" id="mine"  oninput="if(value<0)value=0" placeholder="取值0-0,默认0"></div>
+                        <div>雷：<input type="number" id="mine" oninput="if(value<0)value=0" placeholder="取值0-0,默认0">
+                        </div>
                         <button onclick="createTable()">生成</button>
                     </div>
                 </div>
                 <a class="text-left1"><img src="assets/images/ps.gif"></a>
                 <div>
-                   
+
                     <div class="text-right">计时/分:秒</div>
                     <div id="timer" class="font-timer">00:00</div>
                 </div>
 
             </div>
         </div>
-        <div class="main-bottom">           
+        <div class="main-bottom">
             <div id="temp" class="temp">
-                <div><a><img src="assets/images/zeb_m.jpg"></a></div>
+                <div><a><img class="img1" src="assets/images/zeb_m.jpg"></a></div>
                 <div> 你好，世界 </div>
-                <div><a><img src="assets/images/zeb_m_rotated.jpg"></a></div>
+                <div><a><img class="img1" src="assets/images/zeb_m_rotated.jpg"></a></div>
             </div>
         </div>
     </div>
