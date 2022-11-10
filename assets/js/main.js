@@ -2,24 +2,13 @@ window.onload = () => {
     startUpdateTime()
 }
 
+//dayjs库 dayjs(1318781876406).format('YYYY-MM-DD HH:mm:ss');   // 2011-10-17 00:17:56
 function showtime(time) {
-    let min;
-    let second;
-    min = Math.floor(time / 1000 / 60 % 60);
-    second = Math.floor(time / 1000 % 60);
-    min = (min < 10 ? "0" + min : min) + ":";
-    second = second < 10 ? "0" + second : second;
-    return min + second;
+    return dayjs(time).format('mm:ss');
 }
 function timestampToTime(timestamp) {
     var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-    var Y = date.getFullYear() + '-';
-    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-    var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
-    return Y + M + D + h + m + s;
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
 }
 var start;//游戏开始时间
 var tab = false;//记录是否开始游戏
@@ -29,7 +18,7 @@ function startUpdateTime() {
         var now=new Date().getTime();//时钟时间
         let nowTime = timestampToTime(now);
         if(tab){
-            time =  now-start;
+            time =  (parseInt(now/1000)- parseInt(start/1000))*1000;
             document.getElementById("timer").innerHTML = showtime(time);
         }
         //提示雷的取值
