@@ -7,13 +7,13 @@ function showtime(time) {
     return dayjs(time).format('mm:ss');
 }
 function timestampToTime(timestamp) {
-    var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+    return dayjs(timestamp).format('YYYY-MM-DD HH:mm:ss');
 }
 var start;//游戏开始时间
 var tab = false;//记录是否开始游戏
+let time;//计时
 function startUpdateTime() {
-    let time;//计时
+    
     var TIME_UPDATER_ID = setInterval(() => {
         var now=new Date().getTime();//时钟时间
         let nowTime = timestampToTime(now);
