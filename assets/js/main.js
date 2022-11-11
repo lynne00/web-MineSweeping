@@ -66,7 +66,7 @@ function createTable() {
         show += '</table>'
         document.getElementById("temp").innerHTML = show;
         let show2 = ""
-        show2 += '<a id="toggle" ><img class="img2" src="assets/images/sao.png" onclick="toggle()"></a>';/////////////////////////////
+        show2 += '<a id="toggle" >点击切换-><img class="img2" src="assets/images/sao.png" onclick="toggle()"></a>';/////////////////////////////
         document.getElementById("temp2").innerHTML = show2;//用于切换设置旗帜和扫雷 触屏端不能右键
     }
 
@@ -76,12 +76,14 @@ var bj = true;//标记此时鼠标左键点击的状态，初始为扫雷，触�
 function toggle() {
     imga = document.getElementById("toggle");
     if (imga.innerHTML.match("sao")) {
-        imga.innerHTML = '<img class="img2" src="assets/images/sign.png" onclick="toggle()">';
-        bj = true;
+        imga.innerHTML = '点击切换-><img class="img2" src="assets/images/sign.png" onclick="toggle()">';
+        bj = false;
+        console.log(bj);
     }
     else if (imga.innerHTML.match("sign")) {
-        imga.innerHTML = '<img class="img2" src="assets/images/sao.png" onclick="toggle()">';
-        bj = false;
+        imga.innerHTML = '点击切换-><img class="img2" src="assets/images/sao.png" onclick="toggle()">';
+        bj = true;
+        console.log(bj);
     }
 }
 //左键事件
@@ -91,42 +93,62 @@ function clickTable(i, j) {
     var mine = document.getElementById("mine").value;
     const cellsum = row * col;
     imga = document.getElementById(`cellClick_${i}_${j}`);
-    //是否踩到雷
-    if (map[i][j] == "*") {
-        showMap();
-        setTimeout("alert('defate!',location.reload())", 100);
-    }
-    else {
-        let cnt = 0;//记录周围雷数
-        for (let x = i - 1; x < i + 2; x++) {
-            //边界判定
-            if (x < 0 || x > map.length - 1) {
-                continue;
-            }
-            //计算周边雷数
-            for (let y = j - 1; y < j + 2; y++) {
-                if (y < 0 || y > map[0].length - 1) {
+    if (bj == true) {
+        console.log(bj);
+        //是否踩到雷
+        if (map[i][j] == "*") {
+            showMap();
+            setTimeout("alert('defate!',location.reload())", 100);
+        }
+        else {
+            let cnt = 0;//记录周围雷数
+            for (let x = i - 1; x < i + 2; x++) {
+                //边界判定
+                if (x < 0 || x > map.length - 1) {
                     continue;
                 }
-                if (map[x][y] == "*") {
-                    cnt++;
+                //计算周边雷数
+                for (let y = j - 1; y < j + 2; y++) {
+                    if (y < 0 || y > map[0].length - 1) {
+                        continue;
+                    }
+                    if (map[x][y] == "*") {
+                        cnt++;
+                    }
                 }
             }
+            //扩散判定
+            if (cnt == 0 && imga.innerHTML.match("ed0") == null) {
+                imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
+                sweep++;
+                spreadMine(i, j);
+            }
+            else if (imga.innerHTML.match("ed") == null) {
+                imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
+                sweep++;
+            }
+            if (cellsum - sweep == mine) {
+                setTimeout("alert(`success!, 时长:${showtime(time)}`,location.reload())", 100);
+                sweep++;
+            }
         }
-        //扩散判定
-        if (cnt == 0 && imga.innerHTML.match("ed0") == null) {
-            imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
-            sweep++;
-            spreadMine(i, j);
-        }
-        else if (imga.innerHTML.match("ed") == null) {
-            imga.innerHTML = `<img src="assets/images/cell_clicked${cnt}.png" class="cell_click">`;
-            sweep++;
-        }
-        if (cellsum - sweep == mine) {
-            setTimeout("alert(`success!, 时长:${showtime(time)}`,location.reload())", 100);
-            sweep++;
-        }
+    }
+    else {
+        console.log(6666666);
+        setSign2(i, j);
+    }
+}
+//触屏版插旗帜
+function setSign2(i, j) {
+    var row = document.getElementById("row").value;
+    var col = document.getElementById("col").value;
+    imga = document.getElementById(`cellClick_${i}_${j}`);
+    if ((imga.innerHTML.match("sign") == null) && (imga.innerHTML.match("ed") == null)) {
+        imga.innerHTML = `<img src="assets/images/sign.png" class="cell_click" onclick="setSign2(${i},${j})">`;
+    }
+    else if (imga.innerHTML.match("sign")) {
+        imga.innerHTML = `<img src="assets/images/cell_click.png" class="cell_click" 
+                onclick="clickTable(${i},${j})" oncontextmenu="setSign(${i},${j})">`
     }
 }
 
@@ -148,7 +170,7 @@ function setMine(map) {
     }
     console.log(map);
 }
-//设置标记
+//设置标记，pc
 function setSign(i, j) {
     imga = document.getElementById(`cellClick_${i}_${j}`);
     if (imga.innerHTML.match("sign") == null) {
