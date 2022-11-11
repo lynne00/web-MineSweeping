@@ -13,19 +13,18 @@ var start;//游戏开始时间
 var tab = false;//记录是否开始游戏
 let time;//计时
 function startUpdateTime() {
-    
+
     var TIME_UPDATER_ID = setInterval(() => {
-        var now=new Date().getTime();//时钟时间
+        var now = new Date().getTime();//时钟时间
         let nowTime = timestampToTime(now);
-        if(tab){
-            time =  (parseInt(now/1000)- parseInt(start/1000))*1000;
+        if (tab) {
+            time = (parseInt(now / 1000) - parseInt(start / 1000)) * 1000;
             document.getElementById("timer").innerHTML = showtime(time);
         }
         //提示雷的取值
-        let maxmine=getCol()*getRow();
+        let maxmine = getCol() * getRow();
         document.getElementById("mine").placeholder = `取值0-${maxmine},默认0`;
         document.getElementById("nowTime").innerHTML = nowTime;
-        
     }, 500)
 }
 //制作地图
@@ -38,14 +37,14 @@ function createTable() {
     var mine = document.getElementById("mine").value;
     const cellsum = row * col;
     if (row <= 0 || col <= 0 || row == " " || col == " ") {
-        alert("你生成了个寂寞？",location.reload());
+        alert("你生成了个寂寞？", location.reload());
     }
     else if (mine > cellsum) {
-        alert("雷数超标！",location.reload());
+        alert("雷数超标！", location.reload());
     }
     else {
         document.getElementById("timer").innerHTML = "00:00";
-        tab=true;
+        tab = true;
         start = new Date().getTime();//记录游戏开始时间
         for (var i = 0; i < row; i++) {
             map[i] = new Array();
@@ -66,8 +65,24 @@ function createTable() {
         }
         show += '</table>'
         document.getElementById("temp").innerHTML = show;
+        let show2 = ""
+        show2 += '<a id="toggle" ><img class="img2" src="assets/images/sao.png" onclick="toggle()"></a>';/////////////////////////////
+        document.getElementById("temp2").innerHTML = show2;//用于切换设置旗帜和扫雷 触屏端不能右键
     }
 
+}
+var bj = true;//标记此时鼠标左键点击的状态，初始为扫雷，触屏端用
+//用于切换设置旗帜和扫雷 触屏端不能右键
+function toggle() {
+    imga = document.getElementById("toggle");
+    if (imga.innerHTML.match("sao")) {
+        imga.innerHTML = '<img class="img2" src="assets/images/sign.png" onclick="toggle()">';
+        bj = true;
+    }
+    else if (imga.innerHTML.match("sign")) {
+        imga.innerHTML = '<img class="img2" src="assets/images/sao.png" onclick="toggle()">';
+        bj = false;
+    }
 }
 //左键事件
 function clickTable(i, j) {
@@ -79,7 +94,7 @@ function clickTable(i, j) {
     //是否踩到雷
     if (map[i][j] == "*") {
         showMap();
-        setTimeout("alert('defate!',location.reload())", 100);///////
+        setTimeout("alert('defate!',location.reload())", 100);
     }
     else {
         let cnt = 0;//记录周围雷数
@@ -113,7 +128,6 @@ function clickTable(i, j) {
             sweep++;
         }
     }
-
 }
 
 //设置地雷
@@ -144,7 +158,6 @@ function setSign(i, j) {
         imga.innerHTML = `<img src="assets/images/cell_click.png" class="cell_click" 
         onclick="clickTable(${i},${j})" oncontextmenu="setSign(${i},${j})">`
     }
-
 }
 //显示全局地雷
 function showMap() {
@@ -176,7 +189,7 @@ function getRow() {
     if (document.getElementById("row") != null) {
         return document.getElementById("row").value;
     }
-    else{
+    else {
         return 0;
     }
 }
@@ -184,7 +197,7 @@ function getCol() {
     if (document.getElementById("row") != null) {
         return document.getElementById("col").value;
     }
-    else{
+    else {
         return 0;
     }
 }

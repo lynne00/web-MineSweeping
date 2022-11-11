@@ -62,7 +62,7 @@ body {
 button {
     margin-top: 4px;
     height: 23px;
-    width: 55%;
+    width: 54%;
     margin-left: 30px;
 }
 
@@ -112,4 +112,15 @@ input {
 .img1{
     width: 108px;
     height: 162px;
+}
+.img2{
+    width: 35px;
+    height: 35px;
+}
+.main-bottom-button
+{
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px rgb(0, 0, 0) solid;
+    padding: 10px;
 }
